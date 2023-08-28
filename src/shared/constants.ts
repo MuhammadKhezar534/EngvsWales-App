@@ -1,0 +1,9 @@
+export const TEAM = {
+    NORTH: 'NORTH',
+    SOUTH: 'SOUTH',
+};
+
+export const GAME_TYPES = {
+    SUNDAY_FOURBALLS: 'SUNDAY_FOURBALLS',
+    MONDAY_SINGLES: 'MONDAY_SINGLES',
+};
