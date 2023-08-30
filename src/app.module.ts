@@ -11,7 +11,7 @@ import { GameModule } from './modules/Game/game.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot("mongodb://localhost:27017/golf-pwa"),
+    MongooseModule.forRoot("mongodb+srv://admin:hQfZiGRj5dVSLrzZ@atlascluster.or52cie.mongodb.net/golf-pwa"),
     AuthModule,
     UserModule,
     PlayerModule,
