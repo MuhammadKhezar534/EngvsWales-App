@@ -2,8 +2,7 @@ import { Body, Controller, Get, Param, Post, Put, Query, UseGuards } from "@nest
 import { GameService } from "./game.service";
 import { gameDTO, updateGameDto } from "./dto/game.dto";
 import { JwtAuthGuard } from "../auth/guards/jwt.auth.guard";
-
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('game')
 export class GameController {
     constructor(private gameService: GameService) { }
@@ -12,16 +11,26 @@ export class GameController {
     async fetchGame(
         @Query('gameType') gameType,
     ) {
-        const player = await this.gameService.getAllGameList(gameType)
-        return player
+        const game = await this.gameService.getAllGameList(gameType)
+        return game
     }
 
+    @Get('single-game/:id')
+    async fetchGameById(
+        @Param('id') gameId,
+    ) {
+        const game = await this.gameService.getGame(gameId)
+        return game
+    }
+    @UseGuards(JwtAuthGuard)
     @Post()
     async addGame(@Body() gameDTO: gameDTO) {
         const game = await this.gameService.addGame(gameDTO)
         return game
     }
 
+
+    @UseGuards(JwtAuthGuard)
     @Put()
     async updateScoreOfGame(@Query('gameId') gameId, @Body() updateGameDto: updateGameDto) {
         const game = await this.gameService.updateScore(gameId, updateGameDto)

@@ -18,14 +18,20 @@ export class GameService {
         return gameListing
     }
 
+    async getGame(gameId): Promise<Game> {
+        const game = await this.gameModel.findById({ _id: gameId })
+        if (!game) {
+            throw new NotFoundException('Game does not exist.')
+        }
+        return game
+    }
+
 
     async updateScore(gameId, updateGameDto): Promise<any> {
         const game = await this.gameModel.findById({ _id: gameId })
         if (!game) {
             throw new NotFoundException('Game does not exist.')
         }
-
-
         game.northScore = updateGameDto.northScore
         game.southScore = updateGameDto.southScore
 

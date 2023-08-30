@@ -3,7 +3,6 @@ import { playerDTO } from "./dto/player.dto";
 import { PlayerService } from "./player.service";
 import { JwtAuthGuard } from "../auth/guards/jwt.auth.guard";
 
-@UseGuards(JwtAuthGuard)
 @Controller('player')
 export class PlayerController {
     constructor(private playerService: PlayerService) { }
@@ -16,6 +15,7 @@ export class PlayerController {
         return player
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async addPlayer(@Body() playerDTO: playerDTO) {
         const player = await this.playerService.addPlayer(playerDTO)
