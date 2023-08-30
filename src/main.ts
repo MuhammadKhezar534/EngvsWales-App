@@ -21,6 +21,6 @@ async function bootstrap() {
   });
 
 
-  await app.listen(3008);
+  await app.listen(process.env.PORT || 3008);
 }
 bootstrap();
