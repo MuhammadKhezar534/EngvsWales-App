@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Model } from 'mongoose';
 import { Player } from "./interfaces/player.interface";
 import { InjectModel } from '@nestjs/mongoose';
@@ -18,5 +18,23 @@ export class PlayerService {
         return playerListing
     }
 
+
+    async getPlayer(id): Promise<Player> {
+        const player = await this.playerModel.findById({ _id: id })
+        if (!player) {
+            throw new NotFoundException('Player does not exist.')
+        }
+        return player
+    }
+
+
+    async updatePlayer(id, playerDTO: playerDTO): Promise<Player> {
+        const updatedPlayer = await this.playerModel.findByIdAndUpdate(
+            id,
+            playerDTO,
+            { new: true },
+        );
+        return updatedPlayer;
+    }
 
 }
