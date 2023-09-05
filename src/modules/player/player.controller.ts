@@ -24,7 +24,7 @@ export class PlayerController {
 
     @UseGuards(JwtAuthGuard)
     @Get('single/:id')
-    async getPlayer(@Param() playerId) {
+    async getPlayer(@Param('id') playerId) {
         const player = await this.playerService.getPlayer(playerId)
         return player
     }

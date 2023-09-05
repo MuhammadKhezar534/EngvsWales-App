@@ -20,7 +20,7 @@ export class PlayerService {
 
 
     async getPlayer(id): Promise<Player> {
-        const player = await this.playerModel.findById({ _id: id })
+        const player = await this.playerModel.findById({ _id: id }).exec()
         if (!player) {
             throw new NotFoundException('Player does not exist.')
         }
