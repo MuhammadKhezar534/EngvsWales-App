@@ -37,7 +37,10 @@ export class GameService {
 
         await game.save()
         return game
+    }
 
-
+    async deleteGame(gameId): Promise<any> {
+        const deleteGame = await this.gameModel.findByIdAndRemove({ _id: gameId });
+        return deleteGame;
     }
 }
