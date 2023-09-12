@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
 import { playerDTO } from "./dto/player.dto";
 import { PlayerService } from "./player.service";
 import { JwtAuthGuard } from "../auth/guards/jwt.auth.guard";
@@ -36,6 +36,16 @@ export class PlayerController {
         @Body() playerDTO: playerDTO,
     ) {
         const player = await this.playerService.updatePlayer(playerId, playerDTO);
+        if (!player) throw new NotFoundException('Player does not exist!');
+        return player;
+    }
+
+
+    @UseGuards(JwtAuthGuard)
+    @Delete()
+    async deleteGame(@Query('playerId') playerId) {
+        console.log({ playerId });
+        const player = await this.playerService.deletePlayer(playerId)
         if (!player) throw new NotFoundException('Player does not exist!');
         return player;
     }

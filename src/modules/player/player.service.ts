@@ -37,4 +37,9 @@ export class PlayerService {
         return updatedPlayer;
     }
 
+    async deletePlayer(playerId): Promise<any> {
+        const deleteGame = await this.playerModel.findByIdAndRemove({ _id: playerId });
+        return deleteGame;
+    }
+
 }
